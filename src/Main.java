@@ -22,7 +22,7 @@ public class Main {
 
         //произвольные bus
         Transport hyundai = new Bus("Hyudai", "County");
-        Transport neoplan = new Bus("Neoplan", "Tourliner", 13.6f);
+        Bus neoplan = new Bus("Neoplan", "Tourliner", 13.6f);
         Transport bogdan = new Bus("БОГДАН", "А201");
         Transport liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
@@ -43,6 +43,22 @@ public class Main {
 
         printTransport((Competing) bugatti, (Competing) scania, (Competing) bogdan);
 
+        Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
+        sanka.addTransport(bugatti);
+        Driver fedya = new Driver("Федя", LicenseCategory.C, 12);
+        fedya.addTransport(kamaz);
+        Driver serega = new Driver("Серёга", LicenseCategory.D, 20);
+        serega.addTransport(ferrari);
+        Driver<Car> misha = new Driver<>("Михаэль Шумахер", LicenseCategory.B, 30);
+        misha.addTransport((Car) ferrari);
+        Driver<Bus> vanya = new Driver<>("Иван", LicenseCategory.D, 15);
+        vanya.addTransport(neoplan);//да, тут ничего кроме Bus не даст вводить IDEA
+
+        printCompetition(sanka);
+        printCompetition(fedya);
+        printCompetition(serega);
+        printCompetition(misha);
+        printCompetition(vanya);
     }
 
     private static void printTransport(Competing... transports) {
@@ -51,6 +67,14 @@ public class Main {
             System.out.println("время пит-стопа - " + transport.pitStop());
             System.out.println("лучшая скорость - " + transport.maxSpeed() + " км/ч");
             System.out.println("лучшее время круга - " + transport.bestLapTime() + " секунд");
+        }
+    }
+
+    private static void printCompetition(Driver driver) {
+        if (driver.getTransport() != null) {
+            System.out.println(driver + " и будет участвовать в заезде!");
+        } else {
+            System.out.println(driver);
         }
     }
 }
