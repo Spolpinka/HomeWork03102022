@@ -39,6 +39,15 @@ public class Car extends Transport implements Competing {
     }
 
     @Override
+    void getAutoType() {
+        if (getBodyType() != null) {
+            System.out.println(getBodyType().name());
+        } else {
+            System.out.println("Данных недостаточно");
+        }
+    }
+
+    @Override
     public String toString() {
         return "Легковой автомобиль: " + super.toString();
     }

@@ -26,6 +26,8 @@ public abstract class Transport {
 
     abstract void stopMove();
 
+    abstract void getAutoType();
+
     @Override
     public String toString() {
         return "марка - " + brand +

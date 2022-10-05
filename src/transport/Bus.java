@@ -34,6 +34,15 @@ public class Bus extends Transport implements Competing {
     }
 
     @Override
+    void getAutoType() {
+        if (getCapacity() != null) {
+            System.out.println(getCapacity().name());
+        } else {
+            System.out.println("Данных недостаточно");
+        }
+    }
+
+    @Override
     public String toString() {
         return "Автобус: " + super.toString();
     }

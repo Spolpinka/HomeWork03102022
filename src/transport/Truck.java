@@ -34,6 +34,15 @@ public class Truck extends Transport implements Competing {
     }
 
     @Override
+    void getAutoType() {
+        if (getLoadCapacity() != null) {
+            System.out.println(getLoadCapacity().name());
+        } else {
+            System.out.println("Данных недостаточно");
+        }
+    }
+
+    @Override
     public String toString() {
         return "Грузовик: " + super.toString();
     }
