@@ -2,12 +2,29 @@ package transport;
 
 public class Car extends Transport implements Competing {
 
+    private CarBodyType bodyType;
+
+
+    public Car(String brand, String model, float engineVolume, CarBodyType bodyType) {
+        super(brand, model, engineVolume);
+        this.bodyType = bodyType;
+    }
+
     public Car(String brand, String model, float engineVolume) {
         super(brand, model, engineVolume);
     }
 
     public Car(String brand, String model) {
         super(brand, model);
+    }
+    public CarBodyType getBodyType() {
+        return bodyType;
+    }
+
+    public void setBodyType(CarBodyType bodyType) {
+        if (bodyType != null) {
+            this.bodyType = bodyType;
+        }
     }
 
 

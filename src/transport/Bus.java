@@ -3,12 +3,24 @@ package transport;
 import java.security.SecureRandom;
 
 public class Bus extends Transport implements Competing {
+
+    private BusCapacity capacity;
     public Bus(String brand, String model, float engineVolume) {
         super(brand, model, engineVolume);
     }
 
     public Bus(String brand, String model) {
         super(brand, model, 12.0f);
+    }
+
+    public BusCapacity getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(BusCapacity capacity) {
+        if (capacity != null) {
+            this.capacity = capacity;
+        }
     }
 
     @Override
