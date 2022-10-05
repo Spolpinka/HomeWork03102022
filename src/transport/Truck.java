@@ -2,6 +2,8 @@ package transport;
 
 public class Truck extends Transport implements Competing {
 
+    private TruckLoadCapacity loadCapacity;
+
 
     public Truck(String brand, String model, float engineVolume) {
         super(brand, model, engineVolume);
@@ -9,6 +11,16 @@ public class Truck extends Transport implements Competing {
 
     public Truck(String brand, String model) {
         super(brand, model, 8.0f);
+    }
+
+    public TruckLoadCapacity getLoadCapacity() {
+        return loadCapacity;
+    }
+
+    public void setLoadCapacity(TruckLoadCapacity loadCapacity) {
+        if (loadCapacity != null) {
+            this.loadCapacity = loadCapacity;
+        }
     }
 
     @Override
