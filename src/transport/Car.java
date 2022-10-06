@@ -29,13 +29,13 @@ public class Car extends Transport implements Competing {
 
 
     @Override
-    void startMove() {
-        System.out.println("Автомобиль начал движение");
+    public void startMove() {
+        System.out.println("Автомобиль " + getBrand() + " начал движение");
     }
 
     @Override
-    void stopMove() {
-        System.out.println("Автомобиль остановился");
+    public void stopMove() {
+        System.out.println("Автомобиль " + getBrand() + " остановился");
     }
 
     @Override
