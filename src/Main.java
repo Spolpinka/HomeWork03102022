@@ -70,6 +70,8 @@ public class Main {
         fedya.getTransport().startMove();
         fedya.getTransport().stopMove();
 
+
+
     }
 
     private static void printTransport(Competing... transports) {
