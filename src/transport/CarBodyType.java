@@ -13,7 +13,7 @@ public enum CarBodyType {
 
     private String name;
 
-    private CarBodyType(String name) {
+    CarBodyType(String name) {
         this.name = name;
     }
 }

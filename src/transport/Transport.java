@@ -22,11 +22,23 @@ public abstract class Transport {
         this.model = model;
     }
 
-    abstract void startMove();
+    public abstract void startMove();
 
-    abstract void stopMove();
+    public abstract void stopMove();
 
     abstract void getAutoType();
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public float getEngineVolume() {
+        return engineVolume;
+    }
 
     @Override
     public String toString() {

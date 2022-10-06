@@ -24,12 +24,12 @@ public class Truck extends Transport implements Competing {
     }
 
     @Override
-    void startMove() {
+    public void startMove() {
         System.out.println("Грузовик начал движение");
     }
 
     @Override
-    void stopMove() {
+    public void stopMove() {
         System.out.println("Грузовик остановился");
     }
 

@@ -11,7 +11,7 @@ public class Main {
         //создаем произвольные car
         Transport lada = new Car("Лада", "Веста Sport");
         Transport ferrari = new Car("Ferrari", "296 GTS", 6.0f);
-        Transport bugatti = new Car("Bugatti", "Veron", 8.0f);
+        Transport bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
         Transport uas = new Car("УАЗ", "UAZ-3909");
 
         //произвольные truck
@@ -45,6 +45,7 @@ public class Main {
 
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         sanka.addTransport(bugatti);
+
         Driver fedya = new Driver("Федя", LicenseCategory.C, 12);
         fedya.addTransport(kamaz);
         Driver serega = new Driver("Серёга", LicenseCategory.D, 20);
@@ -59,6 +60,16 @@ public class Main {
         printCompetition(serega);
         printCompetition(misha);
         printCompetition(vanya);
+
+        for (Transport transport: transports) {
+            System.out.println(transport);
+        }
+
+        sanka.getTransport().startMove();
+        sanka.getTransport().stopMove();
+        fedya.getTransport().startMove();
+        fedya.getTransport().stopMove();
+
     }
 
     private static void printTransport(Competing... transports) {

@@ -24,12 +24,12 @@ public class Bus extends Transport implements Competing {
     }
 
     @Override
-    void startMove() {
+    public void startMove() {
         System.out.println("Автобус начал движение");
     }
 
     @Override
-    void stopMove() {
+    public void stopMove() {
         System.out.println("Автобус остановился");
     }
 
