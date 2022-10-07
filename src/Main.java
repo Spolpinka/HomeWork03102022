@@ -2,7 +2,7 @@ import transport.*;
 
 import java.sql.SQLOutput;
 
-public class Main {
+public class Main <T extends Transport, D extends Driver >{
     public static void main(String[] args) {task1();}{
 
     }
@@ -10,9 +10,9 @@ public class Main {
     static void task1(){
         //создаем произвольные car
         Transport lada = new Car("Лада", "Веста Sport");
-        Transport ferrari = new Car("Ferrari", "296 GTS", 6.0f);
-        Transport bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
-        Transport uas = new Car("УАЗ", "UAZ-3909");
+        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);
+        Car bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
+        Car uas = new Car("УАЗ", "UAZ-3909");
 
         //произвольные truck
         Transport volvo = new Truck("Volvo", "FH16", 10.0f);
