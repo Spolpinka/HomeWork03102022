@@ -10,4 +10,11 @@ public enum TruckLoadCapacity {
     TruckLoadCapacity(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "TruckLoadCapacity{" +
+                "description='" + description + '\'' +
+                '}';
+    }
 }

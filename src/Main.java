@@ -16,9 +16,9 @@ public class Main {
 
         //произвольные truck
         Transport volvo = new Truck("Volvo", "FH16", 10.0f);
-        Transport scania = new Truck("Scania", "R 410 6 × 2 Highline", 12.0f);
-        Transport kamaz = new Truck("КамАЗ", "43118", 12.2f);
-        Transport ural = new Truck("Урал", "Урал-375");
+        Truck scania = new Truck("Scania", "R 410 6 × 2 Highline", 12.0f);
+        Truck kamaz = new Truck("КамАЗ", "43118", 12.2f);
+        Truck ural = new Truck("Урал", "Урал-375");
 
         //произвольные bus
         Transport hyundai = new Bus("Hyudai", "County");
@@ -70,8 +70,10 @@ public class Main {
         fedya.getTransport().startMove();
         fedya.getTransport().stopMove();
 
-
-
+        ((Truck) volvo).setLoadCapacity(TruckLoadCapacity.N3);
+        scania.setLoadCapacity(TruckLoadCapacity.N3);
+        ural.setLoadCapacity(TruckLoadCapacity.N3);
+        System.out.println(ural.getLoadCapacity());
     }
 
     private static void printTransport(Competing... transports) {
