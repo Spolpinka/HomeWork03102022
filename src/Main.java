@@ -2,7 +2,7 @@ import transport.*;
 
 import java.sql.SQLOutput;
 
-public class Main <T extends Transport, D extends Driver >{
+public class Main <T extends Transport >{
     public static void main(String[] args) {task1();}{
 
     }
@@ -10,7 +10,7 @@ public class Main <T extends Transport, D extends Driver >{
     static void task1(){
         //создаем произвольные car
         Transport lada = new Car("Лада", "Веста Sport");
-        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);
+        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);//получается начальный класс решает
         Car bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
         Car uas = new Car("УАЗ", "UAZ-3909");
 
@@ -23,8 +23,8 @@ public class Main <T extends Transport, D extends Driver >{
         //произвольные bus
         Transport hyundai = new Bus("Hyudai", "County");
         Bus neoplan = new Bus("Neoplan", "Tourliner", 13.6f);
-        Transport bogdan = new Bus("БОГДАН", "А201");
-        Transport liaz = new Bus("ЛИАЗ", "5250 Вояж");
+        Bus bogdan = new Bus("БОГДАН", "А201");
+        Bus liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
         Transport[] transports = {
                 lada
@@ -41,7 +41,7 @@ public class Main <T extends Transport, D extends Driver >{
                 , liaz
         };
 
-        printTransport((Competing) bugatti, (Competing) scania, (Competing) bogdan);
+        printTransport(bugatti, scania, bogdan, liaz);
 
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         sanka.addTransport(bugatti);
