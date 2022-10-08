@@ -2,7 +2,7 @@ import transport.*;
 
 import java.sql.SQLOutput;
 
-public class Main {
+public class Main <T extends Transport >{
     public static void main(String[] args) {task1();}{
 
     }
@@ -10,21 +10,21 @@ public class Main {
     static void task1(){
         //создаем произвольные car
         Transport lada = new Car("Лада", "Веста Sport");
-        Transport ferrari = new Car("Ferrari", "296 GTS", 6.0f);
-        Transport bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
-        Transport uas = new Car("УАЗ", "UAZ-3909");
+        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);//получается начальный класс решает
+        Car bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
+        Car uas = new Car("УАЗ", "UAZ-3909");
 
         //произвольные truck
         Transport volvo = new Truck("Volvo", "FH16", 10.0f);
-        Transport scania = new Truck("Scania", "R 410 6 × 2 Highline", 12.0f);
-        Transport kamaz = new Truck("КамАЗ", "43118", 12.2f);
-        Transport ural = new Truck("Урал", "Урал-375");
+        Truck scania = new Truck("Scania", "R 410 6 × 2 Highline", 12.0f);
+        Truck kamaz = new Truck("КамАЗ", "43118", 12.2f);
+        Truck ural = new Truck("Урал", "Урал-375");
 
         //произвольные bus
         Transport hyundai = new Bus("Hyudai", "County");
         Bus neoplan = new Bus("Neoplan", "Tourliner", 13.6f);
-        Transport bogdan = new Bus("БОГДАН", "А201");
-        Transport liaz = new Bus("ЛИАЗ", "5250 Вояж");
+        Bus bogdan = new Bus("БОГДАН", "А201");
+        Bus liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
         Transport[] transports = {
                 lada
@@ -41,7 +41,7 @@ public class Main {
                 , liaz
         };
 
-        printTransport((Competing) bugatti, (Competing) scania, (Competing) bogdan);
+        printTransport(bugatti, scania, bogdan, liaz);
 
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         sanka.addTransport(bugatti);
@@ -70,8 +70,10 @@ public class Main {
         fedya.getTransport().startMove();
         fedya.getTransport().stopMove();
 
-
-
+        ((Truck) volvo).setLoadCapacity(TruckLoadCapacity.N3);
+        scania.setLoadCapacity(TruckLoadCapacity.N3);
+        ural.setLoadCapacity(TruckLoadCapacity.N3);
+        System.out.println(ural.getLoadCapacity());
     }
 
     private static void printTransport(Competing... transports) {
