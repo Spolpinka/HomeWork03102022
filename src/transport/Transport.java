@@ -28,6 +28,8 @@ public abstract class Transport {
 
     abstract void getAutoType();
 
+    abstract void setDiagnostic() throws NotDiagnosableException;
+
     public String getBrand() {
         return brand;
     }

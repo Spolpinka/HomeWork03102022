@@ -39,7 +39,7 @@ public class Driver <T extends Transport> {
 
     }
 
-    public void addTransport(T transport) {
+    public void addTransport(T transport) throws NoLicenseException {
         if (this.transport == null) {
             if (transport.getClass().equals(Car.class) && license.equals(LicenseCategory.B)) {
                 this.transport = transport;
@@ -48,7 +48,7 @@ public class Driver <T extends Transport> {
             } else if (transport.getClass().equals(Bus.class) && license.equals(LicenseCategory.D)) {
                 this.transport = transport;
             } else {
-                System.out.println("Категория прав этого водителя не соответствует автомобилю");
+                throw new NoLicenseException("Необходимо указать тип прав для водителя " + this.getName(), this);
             }
         } else {
             System.out.println("За данным водителем уже закреплен автомобиль");

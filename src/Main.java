@@ -1,16 +1,19 @@
+import org.w3c.dom.ls.LSOutput;
 import transport.*;
 
-import java.sql.SQLOutput;
+public class Main<T extends Transport> {
+    public static void main(String[] args) {
+        task1();
+    }
 
-public class Main <T extends Transport >{
-    public static void main(String[] args) {task1();}{
+    {
 
     }
 
-    static void task1(){
+    static void task1() {
         //создаем произвольные car
         Transport lada = new Car("Лада", "Веста Sport");
-        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);//получается начальный класс решает
+        Car ferrari = new Car("Ferrari", "296 GTS", 6.0f);
         Car bugatti = new Car("Bugatti", "Veron", 8.0f, CarBodyType.SEDAN);
         Car uas = new Car("УАЗ", "UAZ-3909");
 
@@ -44,16 +47,41 @@ public class Main <T extends Transport >{
         printTransport(bugatti, scania, bogdan, liaz);
 
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
-        sanka.addTransport(bugatti);
+        try {
+            sanka.addTransport(bugatti);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
 
         Driver fedya = new Driver("Федя", LicenseCategory.C, 12);
-        fedya.addTransport(kamaz);
+        try {
+            fedya.addTransport(kamaz);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
+
         Driver serega = new Driver("Серёга", LicenseCategory.D, 20);
-        serega.addTransport(ferrari);
+        try {
+            serega.addTransport(ferrari);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
         Driver<Car> misha = new Driver<>("Михаэль Шумахер", LicenseCategory.B, 30);
-        misha.addTransport((Car) ferrari);
+        try {
+            misha.addTransport((Car) ferrari);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
         Driver<Bus> vanya = new Driver<>("Иван", LicenseCategory.D, 15);
-        vanya.addTransport(neoplan);//да, тут ничего кроме Bus не даст вводить IDEA
+        try {
+            vanya.addTransport(neoplan);//да, тут ничего кроме Bus не даст вводить IDEA
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
 
         printCompetition(sanka);
         printCompetition(fedya);
@@ -61,11 +89,20 @@ public class Main <T extends Transport >{
         printCompetition(misha);
         printCompetition(vanya);
 
-        for (Transport transport: transports) {
-            System.out.println(transport);
+        bugatti.setDiagnostic();
+        scania.setDiagnostic();
+        ferrari.setDiagnostic();
+        ural.setDiagnostic();
+
+        for (Transport transport : transports) {
+            try {
+                checkDiagnostic(transport);
+            } catch (NotDiagnostedException e) {
+                System.out.println(e.getMessage());
+            }
         }
 
-        sanka.getTransport().startMove();
+        /*sanka.getTransport().startMove();
         sanka.getTransport().stopMove();
         fedya.getTransport().startMove();
         fedya.getTransport().stopMove();
@@ -74,6 +111,8 @@ public class Main <T extends Transport >{
         scania.setLoadCapacity(TruckLoadCapacity.N3);
         ural.setLoadCapacity(TruckLoadCapacity.N3);
         System.out.println(ural.getLoadCapacity());
+        */
+
     }
 
     private static void printTransport(Competing... transports) {
@@ -90,6 +129,30 @@ public class Main <T extends Transport >{
             System.out.println(driver + " и будет участвовать в заезде!");
         } else {
             System.out.println(driver);
+        }
+    }
+
+    private static void checkDiagnostic(Transport transport) throws NotDiagnostedException {
+        if (!transport.getClass().equals(Bus.class)) {
+            if (transport.getClass().equals(Car.class)) {
+                Car car = (Car) transport;
+                if (car.getDiagnostic()) {
+                    System.out.println("Легковой автомобиль " + car.getBrand() + car.getModel() + " диагностирован");
+                } else {
+                    throw new NotDiagnostedException("Не диагностирована легковая машина " +
+                            car.getModel() + car.getBrand(), car);
+                }
+            } else {
+                Truck truck = (Truck) transport;
+                if (truck.getDiagnostic()) {
+                    System.out.println("Грузовик " + truck.getBrand() + truck.getModel() + " диагностирован");
+                } else {
+                    throw new NotDiagnostedException("Не диагностирован грузовик " +
+                            truck.getBrand() + truck.getModel(), truck);
+                }
+            }
+        } else {
+            System.out.println("Автобус " + transport.getBrand() + transport.getModel() + " в диагностике не нуждается");
         }
     }
 }
