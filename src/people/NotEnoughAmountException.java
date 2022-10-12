@@ -1,3 +1,7 @@
+package people;
+
+import people.Sponsor;
+
 public class NotEnoughAmountException extends Exception {
     private String message;
     private Sponsor sponsor;

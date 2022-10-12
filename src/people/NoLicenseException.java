@@ -1,3 +1,7 @@
+package people;
+
+import people.Driver;
+
 public class NoLicenseException extends Exception {
     private Driver driver;
 

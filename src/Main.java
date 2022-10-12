@@ -1,8 +1,9 @@
-import org.w3c.dom.ls.LSOutput;
+import people.Driver;
+import people.LicenseCategory;
+import people.NoLicenseException;
 import transport.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main<T extends Transport> {

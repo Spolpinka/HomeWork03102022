@@ -1,3 +1,5 @@
+package people;
+
 public class Sponsor {
     private String name;
     private int amount;

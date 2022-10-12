@@ -1,3 +1,5 @@
+package people;
+
 import transport.Bus;
 import transport.Car;
 import transport.Transport;

@@ -1,3 +1,5 @@
+package people;
+
 import transport.Car;
 
 import java.util.List;
