@@ -1,6 +1,10 @@
 import org.w3c.dom.ls.LSOutput;
 import transport.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main<T extends Transport> {
     public static void main(String[] args) {
         task1();
@@ -44,7 +48,14 @@ public class Main<T extends Transport> {
                 , liaz
         };
 
-        printTransport(bugatti, scania, bogdan, liaz);
+        List<Transport> transportsArray = new ArrayList<>();
+//заполняем список транспорта
+        for (Transport t :
+                transports) {
+            transportsArray.add(t);
+        }
+
+        //printTransport(bugatti, scania, bogdan, liaz);
 
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         try {

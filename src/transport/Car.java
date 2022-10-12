@@ -5,6 +5,7 @@ public class Car extends Transport implements Competing {
     private CarBodyType bodyType;
     protected boolean isDiagnosted = false;
 
+
     @Override
     public void setDiagnostic() {
         isDiagnosted = true;
