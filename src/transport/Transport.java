@@ -1,6 +1,7 @@
 package transport;
 
 import people.Driver;
+import people.Mechanic;
 import people.Sponsor;
 import java.util.List;
 
@@ -8,8 +9,10 @@ public abstract class Transport {
     private String brand = "default";
     private String model = "default";
     private float engineVolume = 1.6f;
-    private List<Sponsor> sponsors;
-    private Driver driver;
+    private List<Sponsor> sponsors; // спонсоры
+
+    private List<Mechanic> mechanics; // механики
+    private Driver driver; // водитель
 
     public Transport(String brand, String model, float engineVolume) {
         if (brand != null && !brand.isBlank() && !brand.isEmpty()) {

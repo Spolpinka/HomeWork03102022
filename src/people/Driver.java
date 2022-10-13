@@ -53,7 +53,8 @@ public class Driver <T extends Transport> {
                 throw new NoLicenseException("Необходимо указать тип прав для водителя " + this.getName(), this);
             }
         } else {
-            System.out.println("За данным водителем уже закреплен автомобиль");
+            System.out.println("За данным водителем уже закреплен автомобиль " +
+                    transport.getBrand() + transport.getModel());
         }
     }
 

@@ -1,16 +1,19 @@
-import people.Driver;
-import people.LicenseCategory;
-import people.NoLicenseException;
+import people.*;
 import transport.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main<T extends Transport> {
+    private static Transport[] transports;
+    private static List<Transport> transportList;
+    private static Driver[] drivers;
+    private static List<Mechanic> mechanics;
+    private static List<Sponsor> sponsors;
     public static void main(String[] args) {
         task1();
     }
-
     {
 
     }
@@ -34,7 +37,7 @@ public class Main<T extends Transport> {
         Bus bogdan = new Bus("БОГДАН", "А201");
         Bus liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
-        Transport[] transports = {
+        transports = new Transport[] {
                 lada
                 , ferrari
                 , bugatti
@@ -49,63 +52,33 @@ public class Main<T extends Transport> {
                 , liaz
         };
 
-        List<Transport> transportsArray = new ArrayList<>();
-//заполняем список транспорта
-        for (Transport t :
-                transports) {
-            transportsArray.add(t);
-        }
+        transportList = new ArrayList<>();
+        //заполняем список транспорта
+        transportList.addAll(Arrays.asList(transports));
 
-        //printTransport(bugatti, scania, bogdan, liaz);
+        //создаем 4 водителей
+        createDrivers(bugatti, kamaz, ferrari, neoplan);
 
-        Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
-        try {
-            sanka.addTransport(bugatti);
-        } catch (NoLicenseException e) {
-            System.out.println(e.getMessage());
-        }
+        //создаем 4 спонсоров
+        createSponsors();
 
-        Driver fedya = new Driver("Федя", LicenseCategory.C, 12);
-        try {
-            fedya.addTransport(kamaz);
-        } catch (NoLicenseException e) {
-            System.out.println(e.getMessage());
-        }
+        //создаем механиков
 
 
-        Driver serega = new Driver("Серёга", LicenseCategory.D, 20);
-        try {
-            serega.addTransport(ferrari);
-        } catch (NoLicenseException e) {
-            System.out.println(e.getMessage());
-        }
-
-        Driver<Car> misha = new Driver<>("Михаэль Шумахер", LicenseCategory.B, 30);
-        try {
-            misha.addTransport((Car) ferrari);
-        } catch (NoLicenseException e) {
-            System.out.println(e.getMessage());
-        }
-
-        Driver<Bus> vanya = new Driver<>("Иван", LicenseCategory.D, 15);
-        try {
-            vanya.addTransport(neoplan);//да, тут ничего кроме Bus не даст вводить IDEA
-        } catch (NoLicenseException e) {
-            System.out.println(e.getMessage());
-        }
-
+/*
 
         printCompetition(sanka);
         printCompetition(fedya);
         printCompetition(serega);
         printCompetition(misha);
         printCompetition(vanya);
+*/
 
         bugatti.setDiagnostic();
         scania.setDiagnostic();
         ferrari.setDiagnostic();
         ural.setDiagnostic();
-
+/*
         for (Transport transport : transports) {
             try {
                 checkDiagnostic(transport);
@@ -114,7 +87,7 @@ public class Main<T extends Transport> {
             }
         }
 
-        /*sanka.getTransport().startMove();
+        sanka.getTransport().startMove();
         sanka.getTransport().stopMove();
         fedya.getTransport().startMove();
         fedya.getTransport().stopMove();
@@ -166,5 +139,73 @@ public class Main<T extends Transport> {
         } else {
             System.out.println("Автобус " + transport.getBrand() + transport.getModel() + " в диагностике не нуждается");
         }
+    }
+
+    private static void createDrivers(Car bugatti, Truck kamaz, Car ferrari, Bus neoplan) {
+        drivers = new Driver[5];
+        Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
+        try {
+            sanka.addTransport(bugatti);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Driver fedya = new Driver("Федя", LicenseCategory.C, 12);
+        try {
+            fedya.addTransport(kamaz);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+        Driver serega = new Driver("Серёга", LicenseCategory.D, 20);
+        try {
+            serega.addTransport(ferrari);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Driver<Car> misha = new Driver<>("Михаэль Шумахер", LicenseCategory.B, 30);
+        try {
+            misha.addTransport((Car) ferrari);
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Driver<Bus> vanya = new Driver<>("Иван", LicenseCategory.D, 15);
+        try {
+            vanya.addTransport(neoplan);//да, тут ничего кроме Bus не даст вводить IDEA
+        } catch (NoLicenseException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void createSponsors() {
+        sponsors = new ArrayList<>();
+        Sponsor fedya = new Sponsor("Федор Емельяненко", 10000000);
+        sponsors.add(fedya);
+        Sponsor aleksandr = new Sponsor("Александр Цыкало", 15000000);
+        sponsors.add(aleksandr);
+        Sponsor katya = new Sponsor("Екатерина Варнава", 7000000);
+        sponsors.add(katya);
+        Sponsor misha = new Sponsor("Михаил Жванецкий", 8500000);
+        sponsors.add(misha);
+    }
+    private static void createMechanics() {
+        mechanics = new ArrayList<>();
+        ArrayList<Object> licensesB = new ArrayList<>();
+        licensesB.add(Car.class);
+        ArrayList<Object> licensesBС = new ArrayList<>();
+        licensesBС.add(Car.class);
+        licensesBС.add(Truck.class);
+        ArrayList<Object> licensesBСD = new ArrayList<>();
+        licensesBСD.add(Car.class);
+        licensesBСD.add(Truck.class);
+        licensesBСD.add(Bus.class);
+
+        Mechanic feodosii = new Mechanic("Феодосий", "Петропавловский", "Двулесье", licensesB);
+        Mechanic mikola = new Mechanic("Микола", "Мастрояни", "Железные поршни", licensesBС);
+        Mechanic dilerma = new Mechanic("Дилерма", "Бакиева", "Горячие источники", licensesBСD);
+        Mechanic ivanich = new Mechanic("Иваныч", "Шлебенштайн", "1000 мелочей", licensesBСD);
     }
 }
