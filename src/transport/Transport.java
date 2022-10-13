@@ -3,18 +3,20 @@ package transport;
 import people.Driver;
 import people.Mechanic;
 import people.Sponsor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Transport {
     private String brand = "default";
     private String model = "default";
     private float engineVolume = 1.6f;
-    private List<Sponsor> sponsors; // спонсоры
-
-    private List<Mechanic> mechanics; // механики
-
-    private final int MAX_MECHANICS = 3; // максимальное количество механиков
+    private List<Sponsor> sponsors = new ArrayList<>(); // спонсоры
+    private List<Mechanic> mechanics = new ArrayList<>(); // механики
     private Driver driver; // водитель
+    private final int MAX_MECHANICS = 3; // максимальное количество механиков
+
+
 
     public Transport(String brand, String model, float engineVolume) {
         if (brand != null && !brand.isBlank() && !brand.isEmpty()) {
@@ -57,6 +59,10 @@ public abstract class Transport {
         return sponsors;
     }
 
+    public List<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
     public Driver getDriver() {
         return driver;
     }
@@ -79,11 +85,13 @@ public abstract class Transport {
     public void setMechanics(Mechanic... mechanics) {
         for (Mechanic m :
                 mechanics) {
-            if (this.mechanics.size() < MAX_MECHANICS) {
+            if (this.mechanics.size() < MAX_MECHANICS && m.getTransportClasses().contains(this.getClass())) {
                 this.mechanics.add(m);
-            } else {
+            } else if (this.mechanics.size() >= MAX_MECHANICS){
                 System.out.println("У транспорта " + this.getBrand() + this.getModel() +
-                        " максимальное количество механиков");
+                        " максимальное количество механиков - 6 рук");
+            } else {
+                System.out.println("Квалификация механика не соответствует классу машины!");
             }
         }
     }
@@ -94,4 +102,22 @@ public abstract class Transport {
                 ", модель - " + model +
                 ", объем двигателя - " + engineVolume;
     }
+
+    public String getSponsorsNames() {
+        String result = "";
+        for (int i = 0; i < this.getSponsors().size(); i++) {
+            result += this.getSponsors().get(i).getName() + ", ";
+        }
+        return result;
+    }
+    public String getMechanicsNames() {
+        String result = "";
+        for (int i = 0; i < this.getMechanics().size(); i++) {
+            result += this.getMechanics().get(i).getFirstName() + " " +
+                    this.getMechanics().get(i).getLastName() + ", ";
+        }
+        return result;
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package people;
 
+import transport.Transport;
+
 public class Sponsor {
     private String name;
     private int amount;
@@ -29,4 +31,6 @@ public class Sponsor {
             throw new NotEnoughAmountException("не хватило денег у спонсора " + this.name, this);
         }
     }
+
+
 }

@@ -22,11 +22,11 @@ public class Driver <T extends Transport> {
         return experience;
     }
 
+    private Transport transport;
+
     public Transport getTransport() {
         return transport;
     }
-
-    private Transport transport;
 
     public Driver(String name, LicenseCategory license, int experience) {
         if (name != null && !name.isEmpty() && !name.isBlank()) {

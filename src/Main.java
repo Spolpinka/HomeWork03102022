@@ -6,11 +6,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main<T extends Transport> {
-    private static Transport[] transports;
-    private static List<Transport> transportList;
-    private static Driver[] drivers;
-    private static List<Mechanic> mechanics;
-    private static List<Sponsor> sponsors;
+    private static Transport[] transports;//гараж общий
+    private static List<Transport> transportList; // он же списком
+    private static List<Driver> drivers; // комната водителей
+    private static List<Mechanic> mechanics; // комната механиков
+    private static List<Sponsor> sponsors; // бильярдный клуб спонсоров
     public static void main(String[] args) {
         task1();
     }
@@ -63,7 +63,23 @@ public class Main<T extends Transport> {
         createSponsors();
 
         //создаем механиков
+        createMechanics();
 
+        for (Transport t :
+                transportList) {
+            for (Driver d :
+                    drivers) {
+                t.setDriver(d);
+            }
+            for (Sponsor s :
+                    sponsors) {
+                t.setSponsors(s);
+            }
+            for (Mechanic m :
+                    mechanics) {
+                t.setMechanics(m);
+            }
+        }
 
 /*
 
@@ -72,13 +88,13 @@ public class Main<T extends Transport> {
         printCompetition(serega);
         printCompetition(misha);
         printCompetition(vanya);
-*/
+
 
         bugatti.setDiagnostic();
         scania.setDiagnostic();
         ferrari.setDiagnostic();
         ural.setDiagnostic();
-/*
+
         for (Transport transport : transports) {
             try {
                 checkDiagnostic(transport);
@@ -97,6 +113,15 @@ public class Main<T extends Transport> {
         ural.setLoadCapacity(TruckLoadCapacity.N3);
         System.out.println(ural.getLoadCapacity());
         */
+
+
+        //выводим машины с заданным ДЗ1 от 12.10.2022 описанием
+        for (Transport t :
+                transportList) {
+            printTransportInfo();
+        }
+
+
 
     }
 
@@ -142,7 +167,7 @@ public class Main<T extends Transport> {
     }
 
     private static void createDrivers(Car bugatti, Truck kamaz, Car ferrari, Bus neoplan) {
-        drivers = new Driver[5];
+        drivers = new ArrayList<>();
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         try {
             sanka.addTransport(bugatti);
@@ -178,6 +203,11 @@ public class Main<T extends Transport> {
         } catch (NoLicenseException e) {
             System.out.println(e.getMessage());
         }
+        drivers.add(sanka);
+        drivers.add(fedya);
+        drivers.add(serega);
+        drivers.add(misha);
+        drivers.add(vanya);
     }
 
     private static void createSponsors() {
@@ -203,9 +233,28 @@ public class Main<T extends Transport> {
         licensesBСD.add(Truck.class);
         licensesBСD.add(Bus.class);
 
-        Mechanic feodosii = new Mechanic("Феодосий", "Петропавловский", "Двулесье", licensesB);
-        Mechanic mikola = new Mechanic("Микола", "Мастрояни", "Железные поршни", licensesBС);
-        Mechanic dilerma = new Mechanic("Дилерма", "Бакиева", "Горячие источники", licensesBСD);
-        Mechanic ivanich = new Mechanic("Иваныч", "Шлебенштайн", "1000 мелочей", licensesBСD);
+        Mechanic feodosii = new Mechanic("Феодосий", "Петропавловский",
+                "Двулесье", licensesB);
+        Mechanic mikola = new Mechanic("Микола", "Мастрояни",
+                "Железные поршни", licensesBС);
+        Mechanic dilerma = new Mechanic("Дилерма", "Бакиева",
+                "Горячие источники", licensesBСD);
+        Mechanic ivanich = new Mechanic("Иваныч", "Шлебенштайн",
+                "1000 мелочей", licensesBСD);
+
+        mechanics.add(feodosii);
+        mechanics.add(mikola);
+        mechanics.add(dilerma);
+        mechanics.add(ivanich);
+    }
+
+    private static void printTransportInfo() {
+        for (Transport t :
+                transportList) {
+            System.out.println("транспорт -" + t + ":\n"+
+                    "Водителя зовут: " + t.getDriver().getName() + ";\n" +
+                    "Спонсоры: " + t.getSponsorsNames() + "\n" +
+                    "Механики: " + t.getMechanicsNames());
+        }
     }
 }
