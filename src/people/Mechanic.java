@@ -1,5 +1,7 @@
 package people;
 
+import transport.Transport;
+
 import java.util.List;
 
 public class Mechanic {
@@ -29,5 +31,13 @@ public class Mechanic {
 
     public List<Object> getTransportClasses() {
         return transportClasses;
+    }
+
+    public void service(Transport transport) {
+        System.out.println("техобслуживание " + transport.getBrand() + transport.getModel() + " проведено!");;
+    }
+
+    public void fixTransport(Transport transport) {
+        System.out.println("ремонт транспорта " + transport.getBrand() + transport.getModel() + " проведен!");
     }
 }

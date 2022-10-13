@@ -12,6 +12,8 @@ public abstract class Transport {
     private List<Sponsor> sponsors; // спонсоры
 
     private List<Mechanic> mechanics; // механики
+
+    private final int MAX_MECHANICS = 3; // максимальное количество механиков
     private Driver driver; // водитель
 
     public Transport(String brand, String model, float engineVolume) {
@@ -71,6 +73,18 @@ public abstract class Transport {
             this.driver = driver;
         } else {
             System.out.println("Водитель " + driver.getName() + " уже закреплен за автомобилем!");
+        }
+    }
+
+    public void setMechanics(Mechanic... mechanics) {
+        for (Mechanic m :
+                mechanics) {
+            if (this.mechanics.size() < MAX_MECHANICS) {
+                this.mechanics.add(m);
+            } else {
+                System.out.println("У транспорта " + this.getBrand() + this.getModel() +
+                        " максимальное количество механиков");
+            }
         }
     }
 
