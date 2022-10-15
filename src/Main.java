@@ -1,3 +1,4 @@
+import org.w3c.dom.ls.LSOutput;
 import people.*;
 import transport.*;
 
@@ -65,12 +66,12 @@ public class Main<T extends Transport> {
         //создаем механиков
         createMechanics();
 
+        //пробуем добавить водителя в другой авто
+        neoplan.setDriver(drivers.get(3));
+
         for (Transport t :
                 transportList) {
-            for (Driver d :
-                    drivers) {
-                t.setDriver(d);
-            }
+
             for (Sponsor s :
                     sponsors) {
                 t.setSponsors(s);
@@ -116,12 +117,7 @@ public class Main<T extends Transport> {
 
 
         //выводим машины с заданным ДЗ1 от 12.10.2022 описанием
-        for (Transport t :
-                transportList) {
-            printTransportInfo();
-        }
-
-
+        printTransportInfo();
 
     }
 
@@ -252,7 +248,7 @@ public class Main<T extends Transport> {
         for (Transport t :
                 transportList) {
             System.out.println("транспорт -" + t + ":\n"+
-                    "Водителя зовут: " + t.getDriver().getName() + ";\n" +
+                    "Водителя зовут: " + (t.getDriver() == null ? "нет водителя": t.getDriver().getName()) + ";\n" +
                     "Спонсоры: " + t.getSponsorsNames() + "\n" +
                     "Механики: " + t.getMechanicsNames());
         }
