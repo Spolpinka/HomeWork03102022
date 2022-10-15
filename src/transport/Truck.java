@@ -3,6 +3,7 @@ package transport;
 public class Truck extends Transport implements Competing {
 
     private TruckLoadCapacity loadCapacity;
+    private boolean isDiagnosted = false;
 
 
     public Truck(String brand, String model, float engineVolume) {
@@ -40,6 +41,14 @@ public class Truck extends Transport implements Competing {
         } else {
             System.out.println("Данных недостаточно");
         }
+    }
+
+    @Override
+    public void setDiagnostic() {
+        isDiagnosted = true;
+    }
+    public boolean getDiagnostic() {
+        return isDiagnosted;
     }
 
     @Override

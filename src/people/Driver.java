@@ -1,3 +1,5 @@
+package people;
+
 import transport.Bus;
 import transport.Car;
 import transport.Transport;
@@ -20,11 +22,11 @@ public class Driver <T extends Transport> {
         return experience;
     }
 
+    private Transport transport;
+
     public Transport getTransport() {
         return transport;
     }
-
-    private Transport transport;
 
     public Driver(String name, LicenseCategory license, int experience) {
         if (name != null && !name.isEmpty() && !name.isBlank()) {
@@ -39,7 +41,7 @@ public class Driver <T extends Transport> {
 
     }
 
-    public void addTransport(T transport) {
+    public void addTransport(T transport) throws NoLicenseException {
         if (this.transport == null) {
             if (transport.getClass().equals(Car.class) && license.equals(LicenseCategory.B)) {
                 this.transport = transport;
@@ -48,10 +50,11 @@ public class Driver <T extends Transport> {
             } else if (transport.getClass().equals(Bus.class) && license.equals(LicenseCategory.D)) {
                 this.transport = transport;
             } else {
-                System.out.println("Категория прав этого водителя не соответствует автомобилю");
+                throw new NoLicenseException("Необходимо указать тип прав для водителя " + this.getName(), this);
             }
         } else {
-            System.out.println("За данным водителем уже закреплен автомобиль");
+            System.out.println("За данным водителем уже закреплен автомобиль " +
+                    transport.getBrand() + transport.getModel());
         }
     }
 

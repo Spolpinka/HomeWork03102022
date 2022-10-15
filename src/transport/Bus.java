@@ -24,6 +24,11 @@ public class Bus extends Transport implements Competing {
     }
 
     @Override
+    void setDiagnostic() throws NotDiagnosableException {
+        throw new NotDiagnosableException("Автобус не подлежит диагностике", this);
+    }
+
+    @Override
     public void startMove() {
         System.out.println("Автобус начал движение");
     }

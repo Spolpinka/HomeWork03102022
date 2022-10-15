@@ -3,7 +3,16 @@ package transport;
 public class Car extends Transport implements Competing {
 
     private CarBodyType bodyType;
+    protected boolean isDiagnosted = false;
 
+
+    @Override
+    public void setDiagnostic() {
+        isDiagnosted = true;
+    }
+    public boolean getDiagnostic() {
+        return isDiagnosted;
+    }
 
     public Car(String brand, String model, float engineVolume, CarBodyType bodyType) {
         super(brand, model, engineVolume);
