@@ -8,9 +8,9 @@ public class Mechanic {
     private String firstName;
     private String lastName;
     private String company;
-    private List<Object> transportClasses;
+    private List<LicenseCategory> transportClasses;
 
-    public Mechanic(String firstName, String lastName, String company, List<Object> transportTypes) {
+    public Mechanic(String firstName, String lastName, String company, List<LicenseCategory> transportTypes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.company = company;
@@ -29,7 +29,7 @@ public class Mechanic {
         return company;
     }
 
-    public List<Object> getTransportClasses() {
+    public List<LicenseCategory> getTransportClasses() {
         return transportClasses;
     }
 

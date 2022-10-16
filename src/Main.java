@@ -219,15 +219,15 @@ public class Main<T extends Transport> {
     }
     private static void createMechanics() {
         mechanics = new ArrayList<>();
-        ArrayList<Object> licensesB = new ArrayList<>();
-        licensesB.add(Car.class);
-        ArrayList<Object> licensesBС = new ArrayList<>();
-        licensesBС.add(Car.class);
-        licensesBС.add(Truck.class);
-        ArrayList<Object> licensesBСD = new ArrayList<>();
-        licensesBСD.add(Car.class);
-        licensesBСD.add(Truck.class);
-        licensesBСD.add(Bus.class);
+        ArrayList<LicenseCategory> licensesB = new ArrayList<>();
+        licensesB.add(LicenseCategory.B);
+        ArrayList<LicenseCategory> licensesBС = new ArrayList<>();
+        licensesBС.add(LicenseCategory.B);
+        licensesBС.add(LicenseCategory.C);
+        ArrayList<LicenseCategory> licensesBСD = new ArrayList<>();
+        licensesBСD.add(LicenseCategory.B);
+        licensesBСD.add(LicenseCategory.C);
+        licensesBСD.add(LicenseCategory.D);
 
         Mechanic feodosii = new Mechanic("Феодосий", "Петропавловский",
                 "Двулесье", licensesB);

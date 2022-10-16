@@ -1,6 +1,7 @@
 package transport;
 
 import people.Driver;
+import people.LicenseCategory;
 import people.Mechanic;
 import people.Sponsor;
 
@@ -15,7 +16,6 @@ public abstract class Transport {
     private List<Mechanic> mechanics = new ArrayList<>(); // механики
     private Driver driver; // водитель
     private final int MAX_MECHANICS = 3; // максимальное количество механиков
-
 
 
     public Transport(String brand, String model, float engineVolume) {
@@ -85,9 +85,9 @@ public abstract class Transport {
     public void setMechanics(Mechanic... mechanics) {
         for (Mechanic m :
                 mechanics) {
-            if (this.mechanics.size() < MAX_MECHANICS && m.getTransportClasses().contains(this.getClass())) {
+            if (this.mechanics.size() < MAX_MECHANICS && checkTransportClass(m)) {
                 this.mechanics.add(m);
-            } else if (this.mechanics.size() >= MAX_MECHANICS){
+            } else if (this.mechanics.size() >= MAX_MECHANICS) {
                 System.out.println("У транспорта " + this.getBrand() + this.getModel() +
                         " максимальное количество механиков - 6 рук");
             } else {
@@ -110,6 +110,7 @@ public abstract class Transport {
         }
         return result;
     }
+
     public String getMechanicsNames() {
         String result = "";
         for (int i = 0; i < this.getMechanics().size(); i++) {
@@ -117,6 +118,18 @@ public abstract class Transport {
                     this.getMechanics().get(i).getLastName() + ", ";
         }
         return result;
+    }
+
+    private boolean checkTransportClass(Mechanic mechanic) {
+        if (this.getClass() == Car.class && mechanic.getTransportClasses().contains(LicenseCategory.B)) {
+            return true;
+        } else if (this.getClass() == Truck.class && mechanic.getTransportClasses().contains(LicenseCategory.C)) {
+            return true;
+        } else if (this.getClass() == Bus.class && mechanic.getTransportClasses().contains(LicenseCategory.D)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
