@@ -1,20 +1,24 @@
-import org.w3c.dom.ls.LSOutput;
+package main;
+
 import people.*;
 import transport.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main<T extends Transport> {
     private static Transport[] transports;//гараж общий
-    private static List<Transport> transportList; // он же списком
-    private static List<Driver> drivers; // комната водителей
-    private static List<Mechanic> mechanics; // комната механиков
-    private static List<Sponsor> sponsors; // бильярдный клуб спонсоров
+    private static Set<Transport> transportList; // он же списком
+    private static Set<Driver> drivers; // комната водителей
+    private static Set<Mechanic> mechanics; // гараж механиков
+    private static Set<Sponsor> sponsors; // бильярдный клуб спонсоров
+
     public static void main(String[] args) {
         task1();
     }
+
     {
 
     }
@@ -38,7 +42,7 @@ public class Main<T extends Transport> {
         Bus bogdan = new Bus("БОГДАН", "А201");
         Bus liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
-        transports = new Transport[] {
+        transports = new Transport[]{
                 lada
                 , ferrari
                 , bugatti
@@ -53,9 +57,10 @@ public class Main<T extends Transport> {
                 , liaz
         };
 
-        transportList = new ArrayList<>();
+        transportList = new HashSet<>();
         //заполняем список транспорта
         transportList.addAll(Arrays.asList(transports));
+        addTransport(lada);//проверка метода
 
         //создаем 4 водителей
         createDrivers(bugatti, kamaz, ferrari, neoplan);
@@ -67,8 +72,8 @@ public class Main<T extends Transport> {
         createMechanics();
 
         //пробуем добавить водителя в другой авто
-        neoplan.setDriver(drivers.get(3));
-
+        neoplan.setDriver((Driver) drivers.toArray()[3]);
+/*
         for (Transport t :
                 transportList) {
 
@@ -117,7 +122,7 @@ public class Main<T extends Transport> {
 
 
         //выводим машины с заданным ДЗ1 от 12.10.2022 описанием
-        printTransportInfo();
+        //printTransportInfo();
 
     }
 
@@ -163,7 +168,7 @@ public class Main<T extends Transport> {
     }
 
     private static void createDrivers(Car bugatti, Truck kamaz, Car ferrari, Bus neoplan) {
-        drivers = new ArrayList<>();
+        drivers = new HashSet<>();
         Driver sanka = new Driver<>("Санька", LicenseCategory.B, 10);
         try {
             sanka.addTransport(bugatti);
@@ -199,58 +204,122 @@ public class Main<T extends Transport> {
         } catch (NoLicenseException e) {
             System.out.println(e.getMessage());
         }
-        drivers.add(sanka);
-        drivers.add(fedya);
-        drivers.add(serega);
-        drivers.add(misha);
-        drivers.add(vanya);
+        addDriver(sanka);
+        addDriver(fedya);
+        addDriver(serega);
+        addDriver(misha);
+        addDriver(vanya);
+        addDriver(vanya); //пробуем дублировать Ваньку
     }
 
     private static void createSponsors() {
-        sponsors = new ArrayList<>();
+        sponsors = new HashSet<>();
         Sponsor fedya = new Sponsor("Федор Емельяненко", 10000000);
-        sponsors.add(fedya);
+        addSponsor(fedya);
         Sponsor aleksandr = new Sponsor("Александр Цыкало", 15000000);
-        sponsors.add(aleksandr);
+        addSponsor(aleksandr);
         Sponsor katya = new Sponsor("Екатерина Варнава", 7000000);
-        sponsors.add(katya);
+        addSponsor(katya);
         Sponsor misha = new Sponsor("Михаил Жванецкий", 8500000);
-        sponsors.add(misha);
+        addSponsor(misha);
+        addSponsor(misha);//пробуем дублировать Мишаню
     }
+
     private static void createMechanics() {
-        mechanics = new ArrayList<>();
+        mechanics = new HashSet<>();
         ArrayList<LicenseCategory> licensesB = new ArrayList<>();
         licensesB.add(LicenseCategory.B);
-        ArrayList<LicenseCategory> licensesBС = new ArrayList<>();
-        licensesBС.add(LicenseCategory.B);
-        licensesBС.add(LicenseCategory.C);
-        ArrayList<LicenseCategory> licensesBСD = new ArrayList<>();
-        licensesBСD.add(LicenseCategory.B);
-        licensesBСD.add(LicenseCategory.C);
-        licensesBСD.add(LicenseCategory.D);
+        ArrayList<LicenseCategory> licensesBC = new ArrayList<>();
+        licensesBC.add(LicenseCategory.B);
+        licensesBC.add(LicenseCategory.C);
+        ArrayList<LicenseCategory> licensesBCD = new ArrayList<>();
+        licensesBCD.add(LicenseCategory.B);
+        licensesBCD.add(LicenseCategory.C);
+        licensesBCD.add(LicenseCategory.D);
 
         Mechanic feodosii = new Mechanic("Феодосий", "Петропавловский",
                 "Двулесье", licensesB);
         Mechanic mikola = new Mechanic("Микола", "Мастрояни",
-                "Железные поршни", licensesBС);
+                "Железные поршни", licensesBC);
         Mechanic dilerma = new Mechanic("Дилерма", "Бакиева",
-                "Горячие источники", licensesBСD);
+                "Горячие источники", licensesBCD);
         Mechanic ivanich = new Mechanic("Иваныч", "Шлебенштайн",
-                "1000 мелочей", licensesBСD);
+                "1000 мелочей", licensesBCD);
 
-        mechanics.add(feodosii);
-        mechanics.add(mikola);
-        mechanics.add(dilerma);
-        mechanics.add(ivanich);
+        addMechanic(feodosii);
+        addMechanic(mikola);
+        addMechanic(dilerma);
+        addMechanic(ivanich);
+        addMechanic(ivanich);//пробуем дублировать Иваныча
     }
 
     private static void printTransportInfo() {
         for (Transport t :
                 transportList) {
-            System.out.println("транспорт -" + t + ":\n"+
-                    "Водителя зовут: " + (t.getDriver() == null ? "нет водителя": t.getDriver().getName()) + ";\n" +
+            System.out.println("транспорт -" + t + ":\n" +
+                    "Водителя зовут: " + (t.getDriver() == null ? "нет водителя" : t.getDriver().getName()) + ";\n" +
                     "Спонсоры: " + t.getSponsorsNames() + "\n" +
                     "Механики: " + t.getMechanicsNames());
         }
+    }
+
+    private static void addTransport(Transport transport) {
+        if (!transportList.contains(transport)) {
+            transportList.add(transport);
+        } else {
+            printTransportInfo();
+        }
+    }
+
+    private static void addSponsor(Sponsor sponsor) {
+        if (!sponsors.contains(sponsor)) {
+            sponsors.add(sponsor);
+        } else {
+            for (Sponsor s : sponsors) {
+                System.out.println(s);
+            }
+        }
+    }
+
+    private static void addMechanic(Mechanic mechanic) {
+        if (!mechanics.contains(mechanic)) {
+            mechanics.add(mechanic);
+        } else {
+            for (Mechanic m :
+                    mechanics) {
+                System.out.println(m);
+            }
+        }
+    }
+
+    private static void addDriver(Driver driver) {
+        if (!drivers.contains(driver)) {
+            drivers.add(driver);
+        } else {
+            for (Driver d :
+                    drivers) {
+                System.out.println(d);
+            }
+        }
+    }
+
+    public static Transport[] getTransports() {
+        return transports;
+    }
+
+    public static Set<Transport> getTransportList() {
+        return transportList;
+    }
+
+    public static Set<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public static Set<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public static Set<Sponsor> getSponsors() {
+        return sponsors;
     }
 }

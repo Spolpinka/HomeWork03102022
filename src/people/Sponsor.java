@@ -32,5 +32,9 @@ public class Sponsor {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return "Спонсор - " + name +
+                " готов внести $" + amount;
+    }
 }
