@@ -1,5 +1,6 @@
 package people;
 
+import main.Main;
 import transport.Transport;
 
 import java.util.List;
@@ -15,6 +16,12 @@ public class Mechanic {
         this.lastName = lastName;
         this.company = company;
         this.transportClasses = transportTypes;
+        if (Main.getMechanics().contains(this)) {
+            for (Mechanic m :
+                    Main.getMechanics()) {
+                System.out.println(m);
+            }
+        }
     }
 
     public String getFirstName() {

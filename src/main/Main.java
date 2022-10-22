@@ -1,3 +1,5 @@
+package main;
+
 import org.w3c.dom.ls.LSOutput;
 import people.*;
 import transport.*;
@@ -10,7 +12,7 @@ public class Main<T extends Transport> {
     private static Transport[] transports;//гараж общий
     private static List<Transport> transportList; // он же списком
     private static List<Driver> drivers; // комната водителей
-    private static List<Mechanic> mechanics; // комната механиков
+    private static List<Mechanic> mechanics; // гараж механиков
     private static List<Sponsor> sponsors; // бильярдный клуб спонсоров
     public static void main(String[] args) {
         task1();
@@ -252,5 +254,25 @@ public class Main<T extends Transport> {
                     "Спонсоры: " + t.getSponsorsNames() + "\n" +
                     "Механики: " + t.getMechanicsNames());
         }
+    }
+
+    public static Transport[] getTransports() {
+        return transports;
+    }
+
+    public static List<Transport> getTransportList() {
+        return transportList;
+    }
+
+    public static List<Driver> getDrivers() {
+        return drivers;
+    }
+
+    public static List<Mechanic> getMechanics() {
+        return mechanics;
+    }
+
+    public static List<Sponsor> getSponsors() {
+        return sponsors;
     }
 }
