@@ -47,4 +47,11 @@ public class Mechanic {
     public void fixTransport(Transport transport) {
         System.out.println("ремонт транспорта " + transport.getBrand() + transport.getModel() + " проведен!");
     }
+
+    @Override
+    public String toString() {
+        return "Механик - " + firstName + " " + lastName +
+                " работает в " + company +
+                " может управлять следующим транспортом " + transportClasses.toString();
+    }
 }

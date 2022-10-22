@@ -3,7 +3,10 @@ package main;
 import people.*;
 import transport.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main<T extends Transport> {
     private static Transport[] transports;//гараж общий
@@ -11,9 +14,11 @@ public class Main<T extends Transport> {
     private static Set<Driver> drivers; // комната водителей
     private static Set<Mechanic> mechanics; // гараж механиков
     private static Set<Sponsor> sponsors; // бильярдный клуб спонсоров
+
     public static void main(String[] args) {
         task1();
     }
+
     {
 
     }
@@ -37,7 +42,7 @@ public class Main<T extends Transport> {
         Bus bogdan = new Bus("БОГДАН", "А201");
         Bus liaz = new Bus("ЛИАЗ", "5250 Вояж");
 
-        transports = new Transport[] {
+        transports = new Transport[]{
                 lada
                 , ferrari
                 , bugatti
@@ -68,7 +73,7 @@ public class Main<T extends Transport> {
 
         //пробуем добавить водителя в другой авто
         neoplan.setDriver((Driver) drivers.toArray()[3]);
-
+/*
         for (Transport t :
                 transportList) {
 
@@ -117,7 +122,7 @@ public class Main<T extends Transport> {
 
 
         //выводим машины с заданным ДЗ1 от 12.10.2022 описанием
-        printTransportInfo();
+        //printTransportInfo();
 
     }
 
@@ -199,24 +204,27 @@ public class Main<T extends Transport> {
         } catch (NoLicenseException e) {
             System.out.println(e.getMessage());
         }
-        drivers.add(sanka);
-        drivers.add(fedya);
-        drivers.add(serega);
-        drivers.add(misha);
-        drivers.add(vanya);
+        addDriver(sanka);
+        addDriver(fedya);
+        addDriver(serega);
+        addDriver(misha);
+        addDriver(vanya);
+        addDriver(vanya); //пробуем дублировать Ваньку
     }
 
     private static void createSponsors() {
         sponsors = new HashSet<>();
         Sponsor fedya = new Sponsor("Федор Емельяненко", 10000000);
-        sponsors.add(fedya);
+        addSponsor(fedya);
         Sponsor aleksandr = new Sponsor("Александр Цыкало", 15000000);
-        sponsors.add(aleksandr);
+        addSponsor(aleksandr);
         Sponsor katya = new Sponsor("Екатерина Варнава", 7000000);
-        sponsors.add(katya);
+        addSponsor(katya);
         Sponsor misha = new Sponsor("Михаил Жванецкий", 8500000);
-        sponsors.add(misha);
+        addSponsor(misha);
+        addSponsor(misha);//пробуем дублировать Мишаню
     }
+
     private static void createMechanics() {
         mechanics = new HashSet<>();
         ArrayList<LicenseCategory> licensesB = new ArrayList<>();
@@ -238,17 +246,18 @@ public class Main<T extends Transport> {
         Mechanic ivanich = new Mechanic("Иваныч", "Шлебенштайн",
                 "1000 мелочей", licensesBCD);
 
-        mechanics.add(feodosii);
-        mechanics.add(mikola);
-        mechanics.add(dilerma);
-        mechanics.add(ivanich);
+        addMechanic(feodosii);
+        addMechanic(mikola);
+        addMechanic(dilerma);
+        addMechanic(ivanich);
+        addMechanic(ivanich);//пробуем дублировать Иваныча
     }
 
     private static void printTransportInfo() {
         for (Transport t :
                 transportList) {
-            System.out.println("транспорт -" + t + ":\n"+
-                    "Водителя зовут: " + (t.getDriver() == null ? "нет водителя": t.getDriver().getName()) + ";\n" +
+            System.out.println("транспорт -" + t + ":\n" +
+                    "Водителя зовут: " + (t.getDriver() == null ? "нет водителя" : t.getDriver().getName()) + ";\n" +
                     "Спонсоры: " + t.getSponsorsNames() + "\n" +
                     "Механики: " + t.getMechanicsNames());
         }
@@ -259,6 +268,38 @@ public class Main<T extends Transport> {
             transportList.add(transport);
         } else {
             printTransportInfo();
+        }
+    }
+
+    private static void addSponsor(Sponsor sponsor) {
+        if (!sponsors.contains(sponsor)) {
+            sponsors.add(sponsor);
+        } else {
+            for (Sponsor s : sponsors) {
+                System.out.println(s);
+            }
+        }
+    }
+
+    private static void addMechanic(Mechanic mechanic) {
+        if (!mechanics.contains(mechanic)) {
+            mechanics.add(mechanic);
+        } else {
+            for (Mechanic m :
+                    mechanics) {
+                System.out.println(m);
+            }
+        }
+    }
+
+    private static void addDriver(Driver driver) {
+        if (!drivers.contains(driver)) {
+            drivers.add(driver);
+        } else {
+            for (Driver d :
+                    drivers) {
+                System.out.println(d);
+            }
         }
     }
 
